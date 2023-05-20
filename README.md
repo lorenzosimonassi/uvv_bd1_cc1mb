@@ -1,5 +1,5 @@
 # PSET 1
-## Turma : CC1Mb / Aluno : Lorenzo Simonassi Moura
+## Turma : CC1Mb / Aluno : Lorenzo Simonassi Moura / Professor : Abrantes Araújo Silva Filho
 
 >*No conteúdo deste repositório, você encontrará o banco de dados "Lojas_UVV" juntamente com o script gerado por esse banco de dados. O banco de dados "Lojas_UVV" contém informações relacionadas a várias lojas pertencentes à Universidade Vila Velha (UVV). Ele foi projetado para armazenar dados como nome da loja, clientes cadastrados, produtos vendidos, informações de contato e outros detalhes relevantes.*
 
