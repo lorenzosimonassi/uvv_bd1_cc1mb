@@ -14,3 +14,4 @@
 >Referências que eu utilizei para realizar o trabalho:
  - [POSTGRESQL] (https://www.postgresql.org)
  - [GIT] (https://git-scm.com)
+ - [CHATGPT] (https://chat.openai.com)
