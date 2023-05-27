@@ -2,6 +2,7 @@
 ## **Turma : CC1Mb** 
 ### Aluno : Lorenzo Simonassi Moura
 ### Professor : Abrantes Araújo Silva Filho
+### Monitora : Suellen Miranda Amorim
 
 *No conteúdo deste repositório, você encontrará o banco de dados "uvv" juntamente com o script desse banco de dados. O banco de dados "uvv" contém informações relacionadas a várias lojas pertencentes à Universidade Vila Velha (UVV). Ele foi projetado para armazenar dados como nome da loja, clientes cadastrados, produtos vendidos, informações de contato e outros detalhes relevantes.*
 
