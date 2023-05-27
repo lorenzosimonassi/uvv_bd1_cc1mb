@@ -69,9 +69,9 @@ COMMENT ON COLUMN produtos.imagem_charset      	       IS 'Serve para identifica
 COMMENT ON COLUMN produtos.imagem_ultima_atualizacao   IS 'Serve para identificar a ultima atualização da imagem de um produto.';
 
 --Criar as CHECK CONSTRAINTS da tabela (produtos)
-ALTER TABLE produtos ADD CONSTRAINT preco_unitario_nao_negativo CHECK (preco_unitario > 0);
+ALTER TABLE produtos ADD CONSTRAINT produtos_preco_unitario_nao_negativo CHECK (preco_unitario > 0);
 
-ALTER TABLE produtos ADD CONSTRAINT produto_id_nao_negativo 	CHECK (produto_id > 0);
+ALTER TABLE produtos ADD CONSTRAINT produtos_produto_id_nao_negativo 	 CHECK (produto_id > 0);
 
 
 -- Criar a tabela (lojas)
@@ -109,16 +109,21 @@ COMMENT ON COLUMN lojas.logo_charset    		  IS 'Serve para identificar a logo_ch
 COMMENT ON COLUMN lojas.logo_ultima_atualizacao   IS 'Serve para identificar a última atualização do logo da loja.';
 
 --Criar as CHECK CONSTRAINTS da tabela (lojas)
-ALTER TABLE lojas ADD CONSTRAINT loja_id_nao_negativo 	   		CHECK (loja_id > 0);
+ALTER TABLE lojas ADD CONSTRAINT lojas_loja_id_nao_negativo 	CHECK (loja_id > 0);
 
 ALTER TABLE lojas ADD CONSTRAINT endereco_preenchido       		CHECK ((endereco_web IS NOT NULL) OR (endereco_fisico IS NOT NULL));
 
 ALTER TABLE lojas ADD CONSTRAINT latitude_longitude_preenchido  CHECK ((latitude IS NOT NULL AND longitude IS NOT NULL) OR (latitude IS NULL AND longitude IS NULL));
 
-ALTER TABLE lojas ADD CONSTRAINT logo_preenchido			    CHECK ((logo IS NOT NULL) AND (logo_mime_type IS NOT NULL)
-   																				     AND (logo_arquivo IS NOT NULL)
-    																				 AND (logo_charset IS NOT NULL)
-    																				 AND (logo_ultima_atualizacao IS NOT NULL));
+ALTER TABLE lojas ADD CONSTRAINT logo_preenchida			    CHECK ((logo IS NOT NULL   AND logo_mime_type IS NOT NULL
+   																				          AND logo_arquivo IS NOT NULL
+    																				      AND logo_charset IS NOT NULL
+    																				      AND logo_ultima_atualizacao IS NOT NULL)
+    																				     
+    															OR (logo IS  NULL         AND logo_mime_type IS  NULL
+   																				          AND logo_arquivo IS  NULL
+    																				      AND logo_charset IS  NULL
+    																				      AND logo_ultima_atualizacao IS  NULL));
 
 
 --Criar a tabela (estoques)
@@ -143,13 +148,13 @@ COMMENT ON COLUMN estoques.quantidade   IS 'Serve para identificar a quantidade 
 
 
 --Criar as CHECK CONSTRAINTS da tabela (estoques)
-ALTER TABLE estoques ADD CONSTRAINT estoque_id_nao_negativo  CHECK (estoque_id > 0);
+ALTER TABLE estoques ADD CONSTRAINT estoques_estoque_id_nao_negativo  CHECK (estoque_id > 0);
 
-ALTER TABLE estoques ADD CONSTRAINT loja_id_nao_negativo     CHECK (loja_id > 0);
+ALTER TABLE estoques ADD CONSTRAINT estoques_loja_id_nao_negativo     CHECK (loja_id > 0);
 
-ALTER TABLE estoques ADD CONSTRAINT produto_id_nao_negativo  CHECK (produto_id > 0);
+ALTER TABLE estoques ADD CONSTRAINT estoques_produto_id_nao_negativo  CHECK (produto_id > 0);
  
-ALTER TABLE estoques ADD CONSTRAINT quantidade_nao_negativo  CHECK (quantidade > 0);
+ALTER TABLE estoques ADD CONSTRAINT estoques_quantidade_nao_negativo  CHECK (quantidade > 0);
 
 
 --Criar a tabela (clientes)
@@ -178,7 +183,7 @@ COMMENT ON COLUMN clientes.telefone3     IS 'Telefone 3 do cliente.';
 
 
 --Criar as CHECK CONSTRAINTS da tabela (clientes)
-ALTER TABLE clientes ADD CONSTRAINT cliente_id_nao_negativo CHECK (cliente_id > 0);
+ALTER TABLE clientes ADD CONSTRAINT clientes_cliente_id_nao_negativo CHECK (cliente_id > 0);
 
 
 --Criar tabela (envios)
@@ -205,13 +210,13 @@ COMMENT ON COLUMN envios.status 			  IS 'Serve para visualizar o status do envio
 
 
 --Criar as CHECK CONSTRAINTS da tabela (envios)
-ALTER TABLE envios ADD CONSTRAINT envio_id_nao_negativo 	CHECK (envio_id > 0);
+ALTER TABLE envios ADD CONSTRAINT envios_envio_id_nao_negativo 	 CHECK (envio_id > 0);
 
-ALTER TABLE envios ADD CONSTRAINT loja_id_nao_negativo 		CHECK (loja_id > 0);
+ALTER TABLE envios ADD CONSTRAINT envios_loja_id_nao_negativo 	 CHECK (loja_id > 0);
 
-ALTER TABLE envios ADD CONSTRAINT cliente_id_nao_negativo   CHECK (cliente_id > 0);
+ALTER TABLE envios ADD CONSTRAINT envios_cliente_id_nao_negativo CHECK (cliente_id > 0);
 
-ALTER TABLE envios ADD CONSTRAINT status_envio_valido 		CHECK (status IN ('CRIADO', 'ENVIADO', 'TRANSITO', 'ENTREGUE'));
+ALTER TABLE envios ADD CONSTRAINT envios_status_envio_valido 	 CHECK (status IN ('CRIADO', 'ENVIADO', 'TRANSITO', 'ENTREGUE'));
 
 
 --Criar a tabela (pedidos)
@@ -238,13 +243,13 @@ COMMENT ON COLUMN pedidos.loja_id 			IS 'Foreign key da tabela (pedidos), serve 
 
 
 --Criar as CHECK CONSTRAINTS da tabela (pedidos)
-ALTER TABLE pedidos ADD CONSTRAINT pedido_id_nao_negativo  CHECK (pedido_id > 0);
+ALTER TABLE pedidos ADD CONSTRAINT pedidos_pedido_id_nao_negativo  CHECK (pedido_id > 0);
 
-ALTER TABLE pedidos ADD CONSTRAINT cliente_id_nao_negativo CHECK (cliente_id > 0);
+ALTER TABLE pedidos ADD CONSTRAINT pedidos_cliente_id_nao_negativo CHECK (cliente_id > 0);
 
-ALTER TABLE pedidos ADD CONSTRAINT status_pedido_valido    CHECK (status IN ('CANCELADO','COMPLETO', 'ABERTO', 'PAGO', 'REEMBOLSADO', 'ENVIADO'));
+ALTER TABLE pedidos ADD CONSTRAINT pedidos_status_pedido_valido    CHECK (status IN ('CANCELADO','COMPLETO', 'ABERTO', 'PAGO', 'REEMBOLSADO', 'ENVIADO'));
 
-ALTER TABLE pedidos ADD CONSTRAINT loja_id_nao_negativo    CHECK (loja_id > 0);
+ALTER TABLE pedidos ADD CONSTRAINT pedidos_loja_id_nao_negativo    CHECK (loja_id > 0);
 
 
 --Criar a tabela (pedidos_itens)
@@ -273,15 +278,15 @@ COMMENT ON COLUMN pedidos_itens.envio_id 		  IS 'Foreign key da tabela (pedidos_
 
 
 --Criar as CHECK CONSTRAINTS da tabela (pedidos_itens)
-ALTER TABLE pedidos_itens ADD CONSTRAINT pedido_id_nao_negativo 		CHECK (pedido_id > 0);
+ALTER TABLE pedidos_itens ADD CONSTRAINT pedidos_itens_pedido_id_nao_negativo 		CHECK (pedido_id > 0);
 
-ALTER TABLE pedidos_itens ADD CONSTRAINT produto_id_nao_negativo 		CHECK (produto_id > 0);
+ALTER TABLE pedidos_itens ADD CONSTRAINT pedidos_itens_produto_id_nao_negativo 		CHECK (produto_id > 0);
 
-ALTER TABLE pedidos_itens ADD CONSTRAINT preco_unitario_nao_negativo 	CHECK (preco_unitario > 0);
+ALTER TABLE pedidos_itens ADD CONSTRAINT pedidos_itens_preco_unitario_nao_negativo 	CHECK (preco_unitario > 0);
 
-ALTER TABLE pedidos_itens ADD CONSTRAINT quantidade_nao_negativo 		CHECK (quantidade > 0);
+ALTER TABLE pedidos_itens ADD CONSTRAINT pedidos_itens_quantidade_nao_negativo 		CHECK (quantidade > 0);
 
-ALTER TABLE pedidos_itens ADD CONSTRAINT envio_id_nao_negativo 			CHECK (envio_id > 0);
+ALTER TABLE pedidos_itens ADD CONSTRAINT pedidos_itens_envio_id_nao_negativo 		CHECK (envio_id > 0);
 
 
 --Criar as RELAÇÕES
