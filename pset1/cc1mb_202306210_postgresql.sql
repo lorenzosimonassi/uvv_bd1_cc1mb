@@ -73,6 +73,18 @@ ALTER TABLE produtos ADD CONSTRAINT produtos_preco_unitario_nao_negativo CHECK (
 
 ALTER TABLE produtos ADD CONSTRAINT produtos_produto_id_nao_negativo 	 CHECK (produto_id > 0);
 
+ALTER TABLE produtos ADD CONSTRAINT imagem_preenchida			    CHECK ((imagem IS NOT NULL  AND imagem_mime_type IS NOT NULL
+   																				                AND imagem_arquivo IS NOT NULL
+    																				            AND imagem_charset IS NOT NULL
+    																				            AND imagem_ultima_atualizacao IS NOT NULL)
+    																				     
+    															    OR (imagem IS  NULL         AND imagem_mime_type IS  NULL
+   																				                AND imagem_arquivo IS  NULL
+    																				        	AND imagem_charset IS  NULL
+    																				        	AND imagem_ultima_atualizacao IS  NULL));
+
+
+
 
 -- Criar a tabela (lojas)
 CREATE TABLE lojas (
@@ -116,14 +128,14 @@ ALTER TABLE lojas ADD CONSTRAINT endereco_preenchido       		CHECK ((endereco_we
 ALTER TABLE lojas ADD CONSTRAINT latitude_longitude_preenchido  CHECK ((latitude IS NOT NULL AND longitude IS NOT NULL) OR (latitude IS NULL AND longitude IS NULL));
 
 ALTER TABLE lojas ADD CONSTRAINT logo_preenchida			    CHECK ((logo IS NOT NULL   AND logo_mime_type IS NOT NULL
-   																				          AND logo_arquivo IS NOT NULL
-    																				      AND logo_charset IS NOT NULL
-    																				      AND logo_ultima_atualizacao IS NOT NULL)
+   																				           AND logo_arquivo IS NOT NULL
+    																				       AND logo_charset IS NOT NULL
+    																				       AND logo_ultima_atualizacao IS NOT NULL)
     																				     
-    															OR (logo IS  NULL         AND logo_mime_type IS  NULL
-   																				          AND logo_arquivo IS  NULL
-    																				      AND logo_charset IS  NULL
-    																				      AND logo_ultima_atualizacao IS  NULL));
+    															OR (logo IS  NULL          AND logo_mime_type IS  NULL
+   																				           AND logo_arquivo IS  NULL
+    																				       AND logo_charset IS  NULL
+    																				       AND logo_ultima_atualizacao IS  NULL));
 
 
 --Criar a tabela (estoques)
