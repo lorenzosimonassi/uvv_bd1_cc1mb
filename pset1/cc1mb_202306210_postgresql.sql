@@ -21,6 +21,8 @@ CREATE DATABASE uvv
     LC_CTYPE = 'pt_BR.UTF-8'
     ALLOW_CONNECTIONS = true;
    
+COMMENT ON DATABASE uvv IS 'O banco de dados "uvv" contém informações relacionadas a várias lojas pertencentes à Universidade Vila Velha (UVV).';
+   
 --Concede privilégios ao usuário lorenzo no banco de dados uvv
 GRANT ALL PRIVILEGES ON DATABASE uvv TO lorenzo;
 
